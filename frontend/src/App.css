@@ -1,0 +1,110 @@
+/* Limpieza de estilos por defecto y configuración básica */
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.contenedor-votacion {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #007bff;
+  margin-bottom: 30px;
+}
+
+/* Estilos para las tarjetas de opciones */
+.lista-opciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.tarjeta-opcion {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 8px;
+  width: 280px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.tarjeta-opcion:hover {
+  transform: translateY(-5px);
+}
+
+/* Estilos para la barra de progreso */
+.barra-progreso-contenedor {
+  background: #eee;
+  border-radius: 5px;
+  margin: 10px 0;
+  height: 25px;
+  overflow: hidden;
+  text-align: left;
+}
+
+.barra-progreso {
+  height: 100%;
+  background-color: #28a745; /* Verde para los votos */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+  box-sizing: border-box;
+  min-width: 0%; /* Necesario para que el porcentaje se muestre bien */
+}
+
+/* Estilos para los botones */
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 15px;
+  transition: background-color 0.3s;
+}
+
+.btn-votar {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-votar:hover {
+  background-color: #0056b3;
+}
+
+.btn-votado {
+  background-color: #6c757d; /* Gris cuando ya votó */
+  color: white;
+  cursor: not-allowed;
+}
+
+.mensaje-confirmacion {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    font-weight: bold;
+}
