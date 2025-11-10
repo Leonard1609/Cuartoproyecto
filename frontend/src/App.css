@@ -108,3 +108,274 @@ button {
     border-radius: 5px;
     font-weight: bold;
 }
+
+/* --- Estilos para la cabecera (Header) --- */
+.header-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
+}
+
+.header-app h1 {
+    color: white;
+    margin: 0;
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+
+/* --- Estilos para el Login --- */
+.contenedor-login {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.contenedor-login h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 25px;
+}
+
+.grupo-input {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.grupo-input label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.grupo-input input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Asegura que el padding no cambie el ancho total */
+}
+
+.btn-login {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+}
+
+.mensaje-error {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+/* --- Estilos para el Dashboard de Admin --- */
+.contenedor-admin {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.lista-resultados-admin {
+    list-style: none;
+    padding: 0;
+}
+
+.lista-resultados-admin li {
+    background: #e9ecef;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    border-left: 5px solid #007bff;
+}
+
+/* Estilos para el Login */
+.grupo-input input[type="number"] {
+    /* Ajustes para el input de DNI */
+    -moz-appearance: textfield;
+}
+
+.grupo-input input[type="number"]::-webkit-outer-spin-button,
+.grupo-input input[type="number"]::-webkit-inner-spin-button {
+    /* Oculta los botones de incremento/decremento en Chrome/Safari */
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Estilos para la votación con imágenes */
+.lista-opciones {
+  justify-content: space-around; /* Mejor distribución */
+}
+
+.tarjeta-opcion {
+  width: 300px;
+  text-align: center;
+}
+
+.logo-partido {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.cargando-mensaje {
+    padding: 20px;
+    font-size: 1.2em;
+    color: #007bff;
+    background: #e9f5ff;
+    border-radius: 5px;
+}
+
+/* --- ESTILOS GENERALES Y LOGIN/REGISTRO --- */
+
+.contenedor-login, .contenedor-registro {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.logo-onpe {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.instruccion-login {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 0.95em;
+}
+
+.formulario-registro input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box; 
+    font-size: 1em;
+}
+
+.btn-registro {
+    width: 100%;
+    background-color: #dc3545; /* Rojo de emergencia/acción */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-registro:hover {
+    background-color: #c82333;
+}
+
+.mensaje-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.mensaje-confirmacion {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Estilo para el enlace OCULTO de Admin */
+.admin-link-oculto {
+    position: absolute; /* Posición absoluta, poco visible */
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.75em;
+    color: #999;
+}
+
+.admin-link-oculto a {
+    color: #999;
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+
+.admin-link-oculto a:hover {
+    color: #333;
+}
+
+/* Estilos específicos del login de Admin */
+.admin-login {
+    border: 2px solid #007bff;
+}
+
+.btn-admin-login {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Nuevo estilo para la estructura de Nombres/Apellidos en el formulario de Registro */
+.grupo-nombres {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+    gap: 15px; /* Espacio entre los campos */
+}
+
+/* Asegura que los campos dentro del grupo-nombres usen el espacio de la grilla */
+.grupo-nombres input {
+    margin-bottom: 0 !important; /* Elimina el margen inferior individual */
+}
