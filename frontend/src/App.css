@@ -2,7 +2,7 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0; /* Eliminamos el padding aquí para mejor control en el wrapper */
   text-align: center;
 }
 
@@ -12,6 +12,7 @@ body {
   color: #333;
   margin: 0;
   padding: 0;
+  overflow-x: hidden; /* CRÍTICO: Evita la barra de desplazamiento horizontal en el body */
 }
 
 /* --- NUEVO ESTILO: Escudo Nacional como marca de agua en el fondo --- */
@@ -53,10 +54,11 @@ body {
   background: white;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 95%; 
+  /* AÑADIDOS CRÍTICOS PARA RESPONSIVIDAD */
   max-width: 1200px; /* Mantenemos el máximo para pantallas grandes */
+  width: 95%; /* Ocupa el 95% del ancho de la pantalla, dejando un margen */
   margin: 30px auto; /* Centra el contenedor */
-  box-sizing: border-box; /* IMPORTANTE: Asegura que el padding no desborde el ancho */
+  box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
 }
 
 h1 {
@@ -64,22 +66,31 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* Estilos para las tarjetas de opciones */
+/* --- SOLUCIÓN DE RESPONSIVIDAD PARA CÉDULA DE VOTACIÓN --- */
+
+/* Estilos para el CONTENEDOR de las tarjetas de opciones */
 .lista-opciones {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+  display: grid; 
+  /* CRÍTICO: Crea columnas auto-ajustables. Cada columna debe tener un MIN de 220px. 
+   * Esto asegura que en móvil (ancho ~320px) solo haya UNA columna.
+   */
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px; /* Espacio entre los bloques */
+  justify-content: center; 
+  width: 100%; /* Aseguramos que ocupe todo el ancho de su padre */
 }
 
+/* Estilos para CADA tarjeta de opción */
 .tarjeta-opcion {
   background: #fff;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 8px;
-  width: 280px;
+  /* ELIMINAMOS EL ANCHO FIJO (width: 280px) para que el GRID lo controle */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s;
+  text-align: center; /* Centra el contenido dentro de la tarjeta */
+  height: auto; /* Altura automática */
 }
 
 .tarjeta-opcion:hover {
@@ -200,12 +211,17 @@ button {
     /* Z-index para asegurar que estén SOBRE el pseudo-elemento (Escudo) */
     position: relative;
     z-index: 2; 
+    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
+    width: 95%; /* Asegura que tenga margen en móvil */
 }
 
 /* RESPONSIVE: Los campos se apilan en pantallas pequeñas */
 @media (max-width: 600px) {
     .grupo-nombres {
         grid-template-columns: 1fr !important; /* Una sola columna en móvil */
+    }
+    .header-app h1 {
+        font-size: 1.2em; /* Reducimos el tamaño de letra en el header */
     }
 }
 
@@ -344,6 +360,10 @@ button {
     text-align: left;
     position: relative;
     z-index: 2;
+    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
+    width: 95%; /* Asegura que tenga margen en móvil */
+    margin: 30px auto;
+    max-width: 1200px;
 }
 
 .total-votos {
