@@ -1,79 +1,86 @@
-import { useState } from 'react';
-import './App.css'; // Mantenemos la importación del CSS
+// frontend/src/App.jsx
+import React, { useState } from 'react';
+import { VoteProvider } from './VoteContext';
+import Votacion from './Votacion';
+import AdminDashboard from './AdminDashboard';
+import RegistroVotante from './RegistroVotante';
+import AdminLogin from './AdminLogin';
+import './App.css'; 
+// import { Flag } from 'lucide-react'; // Ya no se necesita el ícono genérico
 
+// URLs de los activos
+const FLAG_URL = "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Peru.svg";
+// Escudo Nacional para usar como fondo
+export const ESCUDO_NACIONAL_URL = "https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg";
+
+
+// --- Componente Principal (App) ---
 function App() {
-  // 1. Estado para las opciones de votación
-  const [opciones, setOpciones] = useState([
-    { id: 1, nombre: 'Candidato A', votos: 12 },
-    { id: 2, nombre: 'Candidato B', votos: 8 },
-    { id: 3, nombre: 'Candidato C', votos: 5 },
-  ]);
+  // Estado de la sesión del usuario: { dni: '...', rol: 'user' | 'admin' | null }
+  const [usuario, setUsuario] = useState(null); 
+  
+  // Función central para establecer la sesión
+  const manejarLogin = (dni, rol) => {
+    setUsuario({ dni: dni, rol: rol, token: 'token-simulado-123' });
+  };
+  
+  const manejarLogout = () => {
+    setUsuario(null);
+    // Redirige a la página principal tras cerrar sesión
+    window.history.pushState({}, '', '/');
+  };
+  
+  // Detecta el acceso Admin oculto (URL: /?admin=login)
+  const isUrlAdmin = window.location.search.includes('?admin=login');
 
-  // 2. Estado para controlar si el usuario ya votó
-  const [haVotado, setHaVotado] = useState(false);
-
-  // Función que maneja el clic de votar
-  const manejarVoto = (idOpcion) => {
-    if (haVotado) {
-      alert("¡Ya has votado! Gracias.");
-      return;
-    }
-
-    // Lógica simulada de votación: incrementa los votos localmente
-    const nuevasOpciones = opciones.map(opcion => {
-      if (opcion.id === idOpcion) {
-        return { ...opcion, votos: opcion.votos + 1 };
+  const renderContenido = () => {
+    if (!usuario) {
+      if (isUrlAdmin) {
+        return <AdminLogin onLogin={(rol) => manejarLogin('AdminID', rol)} />;
       }
-      return opcion;
-    });
-
-    setOpciones(nuevasOpciones);
-    setHaVotado(true); // Marca que el usuario ya votó
+      return <RegistroVotante onRegistroExitoso={manejarLogin} />;
+    } 
     
-    // NOTA: Cuando implementes el backend con Java, aquí reemplazarás esta lógica
-    // con una llamada a tu API usando fetch o axios.
+    switch (usuario.rol) {
+      case 'admin':
+        return <AdminDashboard />; 
+      case 'user':
+        return <Votacion />; 
+      default:
+        return <div>Error de Rol. Por favor, cierre sesión.</div>;
+    }
   };
 
-  // Calcula el total de votos para la barra de progreso
-  const totalVotos = opciones.reduce((sum, opcion) => sum + opcion.votos, 0);
-
   return (
-    <div className="contenedor-votacion">
-      <h1>🗳️ Plataforma de Votación</h1>
-      
-      {haVotado && (
-        <div className="mensaje-confirmacion">
-          ¡Voto registrado! Puedes ver los resultados a continuación.
+    <VoteProvider>
+      <header className="header-app">
+        <div className="header-left">
+          {/* Implementación de la imagen de la bandera */}
+          <img src={FLAG_URL} alt="Bandera de Perú" className="icon-peru flag-image" />
+          <h1>Sistema de Votación Nacional Del Peru</h1>
         </div>
-      )}
-
-      <div className="lista-opciones">
-        {opciones.map(opcion => (
-          <div key={opcion.id} className="tarjeta-opcion">
-            <h2>{opcion.nombre}</h2>
-            <p>Votos: **{opcion.votos}**</p>
-            
-            <div className="barra-progreso-contenedor">
-              <div 
-                className="barra-progreso"
-                style={{ width: `${(opcion.votos / totalVotos) * 100}%` }}
-              >
-                {/* Muestra el porcentaje solo si hay votos */}
-                {totalVotos > 0 ? `${((opcion.votos / totalVotos) * 100).toFixed(1)}%` : '0%'}
-              </div>
-            </div>
-
-            <button 
-              onClick={() => manejarVoto(opcion.id)} 
-              disabled={haVotado}
-              className={haVotado ? 'btn-votado' : 'btn-votar'}
-            >
-              {haVotado ? 'Ya Votaste' : 'Votar por ' + opcion.nombre.split(' ')[1]}
-            </button>
-          </div>
-        ))}
+        
+        {usuario && (
+          <button onClick={manejarLogout} className="btn-logout">
+            Cerrar Sesión ({usuario.rol === 'admin' ? 'ADMIN' : 'VOTANTE'})
+          </button>
+        )}
+      </header>
+      
+      {/* Nuevo wrapper para el fondo del Escudo Nacional */}
+      <div className="main-background-wrapper">
+        <div className="contenido-principal">
+          {renderContenido()}
+        </div>
       </div>
-    </div>
+      
+      {/* Enlace OCULTO para el Administrador */}
+      {!usuario && !isUrlAdmin && (
+          <p className="admin-link-oculto">
+            ¿Admin? <a href="/?admin=login">Ingresar aquí</a>
+          </p>
+      )}
+    </VoteProvider>
   );
 }
 

@@ -7,12 +7,46 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f9;
+  font-family: 'Inter', sans-serif;
+  background-color: #e9eff5; /* Fondo más claro (simulando los cuadros que querías cambiar) */
   color: #333;
   margin: 0;
   padding: 0;
 }
+
+/* --- NUEVO ESTILO: Escudo Nacional como marca de agua en el fondo --- */
+.main-background-wrapper {
+    position: relative; /* Necesario para que el pseudo-elemento se posicione correctamente */
+    padding: 0 20px 20px; /* Asegura un padding inferior similar al que tenía antes */
+    z-index: 1; /* Asegura que el contenido principal siempre esté en frente */
+    overflow: hidden;
+}
+
+.main-background-wrapper::before {
+    content: '';
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg');
+    background-repeat: no-repeat;
+    background-position: center 80px; /* Centra y baja un poco el escudo */
+    background-size: 500px; /* Tamaño del escudo */
+    opacity: 0.05; /* BAJA OPACIDAD para efecto de marca de agua */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Mantiene la imagen detrás del contenido */
+    pointer-events: none; /* Asegura que no interfiera con clics */
+}
+
+/* El contenido principal ya no necesita el padding superior, ya lo da el wrapper */
+.contenido-principal {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+/* ------------------------------------------------------------------ */
+
 
 .contenedor-votacion {
   padding: 20px;
@@ -48,29 +82,15 @@ h1 {
   transform: translateY(-5px);
 }
 
-/* Estilos para la barra de progreso */
-.barra-progreso-contenedor {
-  background: #eee;
-  border-radius: 5px;
-  margin: 10px 0;
-  height: 25px;
-  overflow: hidden;
-  text-align: left;
+.logo-partido {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ddd;
+    margin-bottom: 10px;
+    object-fit: cover;
 }
 
-.barra-progreso {
-  height: 100%;
-  background-color: #28a745; /* Verde para los votos */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-  font-weight: bold;
-  transition: width 0.5s ease-in-out;
-  box-sizing: border-box;
-  min-width: 0%; /* Necesario para que el porcentaje se muestre bien */
-}
 
 /* Estilos para los botones */
 button {
@@ -107,4 +127,385 @@ button {
     border: 1px solid #c3e6cb;
     border-radius: 5px;
     font-weight: bold;
+}
+
+/* --- Estilos para la cabecera (Header) --- */
+.header-app {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 0; /* Eliminado el margen para que se pegue al wrapper */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.header-app h1 {
+    color: white;
+    margin: 0;
+    font-size: 1.5em; /* Ajuste para el header */
+}
+
+/* Ícono de Perú (Base para la imagen o el ícono) */
+.icon-peru {
+    /* Estilos base que se aplican a ambos (el ícono anterior y la imagen) */
+    padding: 2px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+/* ESTILO ESPECÍFICO PARA LA IMAGEN DE LA BANDERA */
+.flag-image {
+    width: 32px; /* Tamaño del icono */
+    height: 32px;
+    object-fit: cover;
+    border: 1px solid white; /* Borde para diferenciar */
+}
+
+.btn-logout {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: normal;
+    margin-top: 0;
+}
+
+.btn-logout:hover {
+    background-color: #c82333;
+}
+
+/* --- Estilos para el Login/Registro --- */
+.contenedor-login, .contenedor-registro {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    /* Z-index para asegurar que estén SOBRE el pseudo-elemento (Escudo) */
+    position: relative;
+    z-index: 2; 
+}
+
+/* RESPONSIVE: Los campos se apilan en pantallas pequeñas */
+@media (max-width: 600px) {
+    .grupo-nombres {
+        grid-template-columns: 1fr !important; /* Una sola columna en móvil */
+    }
+}
+
+.contenedor-login h2, .contenedor-registro h2 {
+    text-align: center;
+    color: #007bff;
+    margin-bottom: 25px;
+}
+
+.logo-onpe {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Estilo para el escudo en el login de admin */
+.escudo-peru {
+    width: 100px; /* Ajusta el tamaño según tu preferencia */
+    height: auto;
+    margin: 15px auto;
+    display: block; /* Centra la imagen */
+}
+
+.instruccion-login {
+    color: #6c757d;
+    margin-bottom: 25px;
+    font-size: 0.95em;
+}
+
+.formulario-registro input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    box-sizing: border-box; 
+    font-size: 1em;
+}
+
+.formulario-registro input[name="email"] {
+    margin-top: 15px;
+}
+
+.btn-registro {
+    width: 100%;
+    background-color: #dc3545; /* Rojo de emergencia/acción */
+    color: white;
+    padding: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+.btn-registro:hover {
+    background-color: #c82333;
+}
+
+.mensaje-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.grupo-nombres {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
+    gap: 15px; /* Espacio entre los campos */
+}
+
+.grupo-nombres input {
+    margin-bottom: 0 !important;
+}
+
+/* Estilo para el enlace OCULTO de Admin */
+.admin-link-oculto {
+    position: fixed; 
+    bottom: 10px;
+    right: 10px;
+    font-size: 0.75em;
+    color: #999;
+}
+
+.admin-link-oculto a {
+    color: #999;
+    text-decoration: none;
+    border-bottom: 1px dotted #999;
+}
+
+.admin-link-oculto a:hover {
+    color: #333;
+}
+
+/* Estilos específicos del login de Admin */
+.admin-login {
+    border: 2px solid #007bff;
+}
+
+.btn-admin-login {
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+/* Borde específico para el registro de votantes */
+.votante-registro-borde {
+    border: 2px solid #dc3545; /* Rojo, como solicitaste */
+}
+
+
+.cargando-mensaje {
+    padding: 20px;
+    font-size: 1.2em;
+    color: #007bff;
+    background: #e9f5ff;
+    border-radius: 5px;
+}
+
+/* --- ESTILOS ESPECÍFICOS DEL ADMIN DASHBOARD --- */
+
+.contenedor-admin {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    position: relative;
+    z-index: 2;
+}
+
+.total-votos {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #dc3545; /* Rojo de acción */
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+.count-value {
+    font-size: 1.5em;
+    display: block;
+    color: #333;
+    margin-top: 5px;
+}
+
+.resultados-listado {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.resultado-item {
+    display: grid;
+    grid-template-columns: 1fr auto; 
+    grid-template-rows: auto auto; 
+    align-items: center;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+/* Contenedor de Logo e Info */
+.info-partido-container {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-admin-partido {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.info-partido {
+    text-align: left;
+}
+
+.info-partido .posicion {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #6c757d;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.info-partido h3 {
+    margin: 0;
+    font-size: 1.1em;
+    display: inline-block;
+}
+
+.candidato-admin {
+    margin: 0;
+    font-size: 0.85em;
+    color: #666;
+}
+
+/* Conteo de Votos */
+.conteo-votos {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.votos-count {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+}
+
+.votos-porcentaje {
+    font-size: 0.9em;
+    color: #dc3545;
+    font-weight: bold;
+}
+
+/* Barra de Progreso (Ocupa todo el ancho inferior) */
+.barra-progreso-contenedor {
+    grid-column: 1 / 3; 
+    grid-row: 2 / 3;
+    background: #eee;
+    border-radius: 5px;
+    margin: 10px 0 0 0;
+    height: 25px;
+    overflow: hidden;
+    text-align: left;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.barra-progreso {
+  height: 100%;
+  background-color: #28a745; /* Verde para los votos */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  font-weight: bold;
+  transition: width 0.5s ease-in-out;
+  box-sizing: border-box;
+  min-width: 25px; /* Asegura que la etiqueta del porcentaje quepa si es muy bajo */
+}
+
+/* --- Responsive para Admin Dashboard --- */
+@media (max-width: 768px) {
+    .contenedor-admin {
+        padding: 10px;
+    }
+    .total-votos {
+        font-size: 1.2em;
+    }
+    .count-value {
+        font-size: 1.3em;
+    }
+
+    .resultado-item {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    .info-partido-container {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+    
+    .conteo-votos {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        align-items: flex-start;
+        text-align: left;
+        padding-left: 65px; 
+    }
+    .votos-porcentaje {
+        margin-left: 10px;
+    }
+    
+    .barra-progreso-contenedor {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+        margin: 10px 0 0 0;
+    }
+
+    .header-app h1 {
+        font-size: 1.1em;
+    }
 }
