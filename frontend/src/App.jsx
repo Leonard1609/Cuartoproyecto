@@ -1,61 +1,33 @@
 // frontend/src/App.jsx
-// Este componente actúa como el gestor de sesión y enrutamiento principal.
-
 import React, { useState } from 'react';
-import Votacion from './Votacion';           // Componente para Votantes (Usuario Normal)
-import AdminDashboard from './AdminDashboard'; // Componente para Administradores
-import RegistroVotante from './RegistroVotante'; // Componente para la pantalla inicial
+import { VoteProvider } from './VoteContext';
+import Votacion from './Votacion';
+import AdminDashboard from './AdminDashboard';
+import RegistroVotante from './RegistroVotante';
+import AdminLogin from './AdminLogin';
 import './App.css'; 
+// import { Flag } from 'lucide-react'; // Ya no se necesita el ícono genérico
 
-// --- 1. Componente de Login de Administrador (Separado y simple) ---
-const AdminLogin = ({ onLogin }) => {
-  // Aquí usamos 'usuario' y 'password' para una autenticación simple
-  const [usuario, setUsuario] = useState(''); 
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-
-  const manejarSubmit = (e) => {
-    e.preventDefault();
-    setError('');
-    
-    // SIMULACIÓN DE AUTENTICACIÓN ADMIN: (El backend de Java haría esta validación)
-    if (usuario === 'admin' && password === 'secreto') { 
-      // Si las credenciales son válidas, llama a la función de login con el rol 'admin'
-      onLogin('admin');
-    } else {
-      setError('Credenciales de administrador inválidas.');
-    }
-  };
-
-  return (
-    <div className="contenedor-login admin-login">
-      <h2>Acceso Exclusivo de Administrador</h2>
-      <form onSubmit={manejarSubmit}>
-        <input type="text" value={usuario} onChange={(e) => setUsuario(e.target.value)} placeholder="Usuario / ID de Admin" required />
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Contraseña de Admin" required />
-        {error && <p className="mensaje-error">{error}</p>}
-        <button type="submit" className="btn-admin-login">INGRESAR AL PANEL</button>
-        <p className="volver-registro"><a href="/">Volver a Registro de Votantes</a></p>
-      </form>
-    </div>
-  );
-};
+// URLs de los activos
+const FLAG_URL = "https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Peru.svg";
+// Escudo Nacional para usar como fondo
+export const ESCUDO_NACIONAL_URL = "https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg";
 
 
-// --- 2. Componente Principal (App) ---
+// --- Componente Principal (App) ---
 function App() {
   // Estado de la sesión del usuario: { dni: '...', rol: 'user' | 'admin' | null }
   const [usuario, setUsuario] = useState(null); 
   
   // Función central para establecer la sesión
   const manejarLogin = (dni, rol) => {
-    // En un entorno empresarial, esta función guardaría el Token JWT
     setUsuario({ dni: dni, rol: rol, token: 'token-simulado-123' });
   };
   
   const manejarLogout = () => {
-    // Cierra la sesión y limpia el token
     setUsuario(null);
+    // Redirige a la página principal tras cerrar sesión
+    window.history.pushState({}, '', '/');
   };
   
   // Detecta el acceso Admin oculto (URL: /?admin=login)
@@ -63,49 +35,52 @@ function App() {
 
   const renderContenido = () => {
     if (!usuario) {
-      // Si no hay sesión, verifica si se usa la URL secreta
       if (isUrlAdmin) {
-        // Muestra el Login de Administrador
         return <AdminLogin onLogin={(rol) => manejarLogin('AdminID', rol)} />;
       }
-      
-      // Por defecto, muestra la pantalla de REGISTRO de Votantes
       return <RegistroVotante onRegistroExitoso={manejarLogin} />;
     } 
     
-    // Si hay sesión, dirige según el rol
     switch (usuario.rol) {
       case 'admin':
         return <AdminDashboard />; 
       case 'user':
         return <Votacion />; 
       default:
-        // Manejo de error si el rol no es reconocido
         return <div>Error de Rol. Por favor, cierre sesión.</div>;
     }
   };
 
   return (
-    <>
+    <VoteProvider>
       <header className="header-app">
-        <h1>Sistema de Votación ONPE </h1>
+        <div className="header-left">
+          {/* Implementación de la imagen de la bandera */}
+          <img src={FLAG_URL} alt="Bandera de Perú" className="icon-peru flag-image" />
+          <h1>Sistema de Votación Nacional Del Peru</h1>
+        </div>
+        
         {usuario && (
           <button onClick={manejarLogout} className="btn-logout">
-            Cerrar Sesión ({usuario.rol})
+            Cerrar Sesión ({usuario.rol === 'admin' ? 'ADMIN' : 'VOTANTE'})
           </button>
         )}
       </header>
-      <div className="contenido-principal">
-        {renderContenido()}
+      
+      {/* Nuevo wrapper para el fondo del Escudo Nacional */}
+      <div className="main-background-wrapper">
+        <div className="contenido-principal">
+          {renderContenido()}
+        </div>
       </div>
       
-      {/* Enlace OCULTO para el Administrador (solo visible si no hay sesión y no estamos en la página de Admin) */}
+      {/* Enlace OCULTO para el Administrador */}
       {!usuario && !isUrlAdmin && (
           <p className="admin-link-oculto">
             ¿Admin? <a href="/?admin=login">Ingresar aquí</a>
           </p>
       )}
-    </>
+    </VoteProvider>
   );
 }
 
