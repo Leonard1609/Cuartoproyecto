@@ -309,6 +309,9 @@ button {
     right: 10px;
     font-size: 0.75em;
     color: #999;
+    /* --- CORRECCIÓN CRÍTICA --- */
+    z-index: 1000; /* Asegura que esté por encima de todos los contenedores */
+    /* El contenedor de registro tiene z-index: 2 */
 }
 
 .admin-link-oculto a {
