@@ -1,25 +1,39 @@
-/* Limpieza de estilos por defecto y configuración básica */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0; /* Eliminamos el padding aquí para mejor control en el wrapper */
-  text-align: center;
+/* --- Limpieza de estilos por defecto y configuración básica --- */
+
+/* 🔑 SOLUCIÓN CLAVE 1: Aplicar el box-sizing globalmente para evitar desbordamientos */
+html {
+    box-sizing: border-box; 
+    margin: 0;
+    padding: 0;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
 }
 
 body {
-  font-family: 'Inter', sans-serif;
-  background-color: #e9eff5; /* Fondo más claro (simulando los cuadros que querías cambiar) */
-  color: #333;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* CRÍTICO: Evita la barra de desplazamiento horizontal en el body */
+    font-family: 'Inter', sans-serif;
+    background-color: #e9eff5; /* Fondo más claro (simulando los cuadros que querías cambiar) */
+    color: #333;
+    margin: 0;
+    padding: 0;
+    /* 🔑 SOLUCIÓN CLAVE 2: Oculta cualquier contenido que se desborde horizontalmente */
+    overflow-x: hidden; 
+    width: 100vw; 
+}
+
+#root {
+    /* 🔑 SOLUCIÓN CLAVE 3: Permitir que el contenido ocupe todo el ancho disponible en móvil */
+    /* Se eliminó max-width: 1280px; y padding: 2rem; para evitar el desbordamiento lateral */
+    margin: 0 auto;
+    text-align: center;
+    width: 100%; 
 }
 
 /* --- NUEVO ESTILO: Escudo Nacional como marca de agua en el fondo --- */
 .main-background-wrapper {
-    position: relative; /* Necesario para que el pseudo-elemento se posicione correctamente */
-    padding: 0 20px 20px; /* Asegura un padding inferior similar al que tenía antes */
-    z-index: 1; /* Asegura que el contenido principal siempre esté en frente */
+    position: relative; 
+    padding: 0 20px 20px; 
+    z-index: 1; 
     overflow: hidden;
 }
 
@@ -27,16 +41,16 @@ body {
     content: '';
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg');
     background-repeat: no-repeat;
-    background-position: center 80px; /* Centra y baja un poco el escudo */
-    background-size: 500px; /* Tamaño del escudo */
-    opacity: 0.05; /* BAJA OPACIDAD para efecto de marca de agua */
+    background-position: center 80px; 
+    background-size: 500px; 
+    opacity: 0.05; 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Mantiene la imagen detrás del contenido */
-    pointer-events: none; /* Asegura que no interfiera con clics */
+    z-index: -1; 
+    pointer-events: none; 
 }
 
 /* El contenido principal ya no necesita el padding superior, ya lo da el wrapper */
@@ -50,51 +64,40 @@ body {
 
 
 .contenedor-votacion {
-  padding: 20px;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  /* AÑADIDOS CRÍTICOS PARA RESPONSIVIDAD */
-  max-width: 1200px; /* Mantenemos el máximo para pantallas grandes */
-  width: 95%; /* Ocupa el 95% del ancho de la pantalla, dejando un margen */
-  margin: 30px auto; /* Centra el contenedor */
-  box-sizing: border-box; /* Asegura que el padding no desborde el ancho */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  color: #007bff;
-  margin-bottom: 30px;
+    color: #007bff;
+    margin-bottom: 30px;
 }
 
 /* --- SOLUCIÓN DE RESPONSIVIDAD PARA CÉDULA DE VOTACIÓN --- */
 
 /* Estilos para el CONTENEDOR de las tarjetas de opciones */
 .lista-opciones {
-  display: grid; 
-  /* CRÍTICO: Crea columnas auto-ajustables. Cada columna debe tener un MIN de 220px. 
-   * Esto asegura que en móvil (ancho ~320px) solo haya UNA columna.
-   */
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px; /* Espacio entre los bloques */
-  justify-content: center; 
-  width: 100%; /* Aseguramos que ocupe todo el ancho de su padre */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 /* Estilos para CADA tarjeta de opción */
 .tarjeta-opcion {
-  background: #fff;
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-  /* ELIMINAMOS EL ANCHO FIJO (width: 280px) para que el GRID lo controle */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s;
-  text-align: center; /* Centra el contenido dentro de la tarjeta */
-  height: auto; /* Altura automática */
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    width: 280px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
 }
 
 .tarjeta-opcion:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
 .logo-partido {
@@ -109,29 +112,29 @@ h1 {
 
 /* Estilos para los botones */
 button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  margin-top: 15px;
-  transition: background-color 0.3s;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s;
 }
 
 .btn-votar {
-  background-color: #007bff;
-  color: white;
+    background-color: #007bff;
+    color: white;
 }
 
 .btn-votar:hover {
-  background-color: #0056b3;
+    background-color: #0056b3;
 }
 
 .btn-votado {
-  background-color: #6c757d; /* Gris cuando ya votó */
-  color: white;
-  cursor: not-allowed;
+    background-color: #6c757d; /* Gris cuando ya votó */
+    color: white;
+    cursor: not-allowed;
 }
 
 .mensaje-confirmacion {
@@ -153,7 +156,7 @@ button {
     background-color: #333;
     color: white;
     border-radius: 8px 8px 0 0;
-    margin-bottom: 0; /* Eliminado el margen para que se pegue al wrapper */
+    margin-bottom: 0; 
 }
 
 .header-left {
@@ -165,12 +168,11 @@ button {
 .header-app h1 {
     color: white;
     margin: 0;
-    font-size: 1.5em; /* Ajuste para el header */
+    font-size: 1.5em; 
 }
 
 /* Ícono de Perú (Base para la imagen o el ícono) */
 .icon-peru {
-    /* Estilos base que se aplican a ambos (el ícono anterior y la imagen) */
     padding: 2px;
     border-radius: 3px;
     box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
@@ -178,10 +180,10 @@ button {
 
 /* ESTILO ESPECÍFICO PARA LA IMAGEN DE LA BANDERA */
 .flag-image {
-    width: 32px; /* Tamaño del icono */
+    width: 32px; 
     height: 32px;
     object-fit: cover;
-    border: 1px solid white; /* Borde para diferenciar */
+    border: 1px solid white; 
 }
 
 .btn-logout {
@@ -208,7 +210,6 @@ button {
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
-    /* Z-index para asegurar que estén SOBRE el pseudo-elemento (Escudo) */
     position: relative;
     z-index: 2; 
     box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
@@ -218,7 +219,7 @@ button {
 /* RESPONSIVE: Los campos se apilan en pantallas pequeñas */
 @media (max-width: 600px) {
     .grupo-nombres {
-        grid-template-columns: 1fr !important; /* Una sola columna en móvil */
+        grid-template-columns: 1fr !important; 
     }
     .header-app h1 {
         font-size: 1.2em; /* Reducimos el tamaño de letra en el header */
@@ -239,10 +240,10 @@ button {
 
 /* Estilo para el escudo en el login de admin */
 .escudo-peru {
-    width: 100px; /* Ajusta el tamaño según tu preferencia */
+    width: 100px; 
     height: auto;
     margin: 15px auto;
-    display: block; /* Centra la imagen */
+    display: block; 
 }
 
 .instruccion-login {
@@ -267,7 +268,7 @@ button {
 
 .btn-registro {
     width: 100%;
-    background-color: #dc3545; /* Rojo de emergencia/acción */
+    background-color: #dc3545; 
     color: white;
     padding: 15px;
     border: none;
@@ -294,8 +295,8 @@ button {
 
 .grupo-nombres {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Tres columnas iguales */
-    gap: 15px; /* Espacio entre los campos */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
 }
 
 .grupo-nombres input {
@@ -309,9 +310,7 @@ button {
     right: 10px;
     font-size: 0.75em;
     color: #999;
-    /* --- CORRECCIÓN CRÍTICA --- */
-    z-index: 1000; /* Asegura que esté por encima de todos los contenedores */
-    /* El contenedor de registro tiene z-index: 2 */
+    z-index: 9999; 
 }
 
 .admin-link-oculto a {
@@ -341,7 +340,7 @@ button {
 
 /* Borde específico para el registro de votantes */
 .votante-registro-borde {
-    border: 2px solid #dc3545; /* Rojo, como solicitaste */
+    border: 2px solid #dc3545; 
 }
 
 
@@ -360,7 +359,8 @@ button {
     background: white;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: left;
+    /* 🔑 CAMBIO CLAVE: Centrar el texto para que el título se vea bien centrado en móvil */
+    text-align: center; 
     position: relative;
     z-index: 2;
     box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
@@ -372,7 +372,7 @@ button {
 .total-votos {
     font-size: 1.5em;
     font-weight: bold;
-    color: #dc3545; /* Rojo de acción */
+    color: #dc3545; 
     margin-bottom: 20px;
     text-align: center;
     border-bottom: 2px solid #eee;
@@ -421,26 +421,38 @@ button {
 
 .info-partido {
     text-align: left;
+    /* 🔑 CAMBIO CLAVE: Dar espacio entre los elementos internos */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrado vertical si hay espacio */
+    gap: 2px; /* Espacio mínimo entre los elementos de texto (h3 y candidato) */
 }
 
-.info-partido .posicion {
-    font-size: 1.2em;
-    font-weight: bold;
-    color: #6c757d;
-    margin-right: 5px;
-    display: inline-block;
-}
-
+/* 1. Separar el Título del Candidato */
 .info-partido h3 {
     margin: 0;
     font-size: 1.1em;
     display: inline-block;
+    /* Añadimos un poco de margen inferior */
+    margin-bottom: 2px;
 }
 
+/* 2. Separar el Candidato del Conteo */
 .candidato-admin {
-    margin: 0;
+    margin: 0; 
     font-size: 0.85em;
     color: #666;
+    /* 🔑 CAMBIO 2: Margen inferior para separarlo del elemento siguiente */
+    margin-bottom: 5px; 
+}
+
+/* 3. Darle margen inferior al conteo (si está en la clase votos-count) */
+.votos-count {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    /* 🔑 CAMBIO 3: Margen inferior para separarlo del porcentaje */
+    margin-bottom: 5px;
 }
 
 /* Conteo de Votos */
@@ -480,17 +492,17 @@ button {
 }
 
 .barra-progreso {
-  height: 100%;
-  background-color: #28a745; /* Verde para los votos */
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  padding-right: 10px;
-  font-weight: bold;
-  transition: width 0.5s ease-in-out;
-  box-sizing: border-box;
-  min-width: 25px; /* Asegura que la etiqueta del porcentaje quepa si es muy bajo */
+    height: 100%;
+    background-color: #28a745; 
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-weight: bold;
+    transition: width 0.5s ease-in-out;
+    box-sizing: border-box;
+    min-width: 25px; 
 }
 
 /* --- Responsive para Admin Dashboard --- */
@@ -521,6 +533,7 @@ button {
         align-items: flex-start;
         text-align: left;
         padding-left: 65px; 
+        margin-top: -10px; /* Ajuste para acercar a la info del partido */
     }
     .votos-porcentaje {
         margin-left: 10px;
@@ -534,5 +547,41 @@ button {
 
     .header-app h1 {
         font-size: 1.1em;
+    }
+}
+
+/* 🚀 Responsive para pantallas MUY pequeñas (< 450px) */
+@media (max-width: 450px) {
+    .contenedor-admin {
+        padding: 10px 5px; 
+    }
+
+    .contenedor-admin h2 {
+        font-size: 1.4em; 
+        line-height: 1.2;
+    }
+
+    .header-app {
+        padding: 10px 5px;
+    }
+    
+    .header-app h1 {
+        font-size: 1em;
+    }
+    
+    .info-partido h3 {
+        font-size: 1em;
+    }
+    
+    .candidato-admin {
+        font-size: 0.8em;
+    }
+
+    .votos-count {
+        font-size: 1em;
+    }
+
+    .votos-porcentaje {
+        font-size: 0.8em;
     }
 }
