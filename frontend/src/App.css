@@ -75,7 +75,9 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* Estilos para las tarjetas de opciones */
+/* --- SOLUCIÓN DE RESPONSIVIDAD PARA CÉDULA DE VOTACIÓN --- */
+
+/* Estilos para el CONTENEDOR de las tarjetas de opciones */
 .lista-opciones {
     display: flex;
     flex-wrap: wrap;
@@ -83,6 +85,7 @@ h1 {
     gap: 20px;
 }
 
+/* Estilos para CADA tarjeta de opción */
 .tarjeta-opcion {
     background: #fff;
     border: 1px solid #ddd;
@@ -209,12 +212,17 @@ button {
     text-align: center;
     position: relative;
     z-index: 2; 
+    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
+    width: 95%; /* Asegura que tenga margen en móvil */
 }
 
 /* RESPONSIVE: Los campos se apilan en pantallas pequeñas */
 @media (max-width: 600px) {
     .grupo-nombres {
         grid-template-columns: 1fr !important; 
+    }
+    .header-app h1 {
+        font-size: 1.2em; /* Reducimos el tamaño de letra en el header */
     }
 }
 
@@ -355,6 +363,10 @@ button {
     text-align: center; 
     position: relative;
     z-index: 2;
+    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
+    width: 95%; /* Asegura que tenga margen en móvil */
+    margin: 30px auto;
+    max-width: 1200px;
 }
 
 .total-votos {
