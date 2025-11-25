@@ -113,7 +113,8 @@
 .contenedor-registro h2,
 .contenedor-admin h2 {
   color: #007bff; /* Azul ONPE/Admin */
-  margin-bottom: 25px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   text-align: center;
 }
 
@@ -139,7 +140,7 @@
 .logo-onpe {
   width: 140px;
   height: auto;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .escudo-peru {
