@@ -45,7 +45,6 @@
   border: 1px solid #ddd;
 }
 
-/* Botón de cerrar sesión */
 .btn-logout {
   background-color: #dc3545;
   color: white;
@@ -104,27 +103,24 @@
   z-index: 2;
   margin-bottom: 20px;
   box-sizing: border-box;
-  /* Restauramos el color de texto por defecto para el contenido de las tarjetas */
   color: #333; 
 }
 
-/* TÍTULOS EN FORMULARIOS (Restaurado color azul) */
+/* TÍTULOS EN FORMULARIOS */
 .contenedor-login h2, 
 .contenedor-registro h2,
 .contenedor-admin h2 {
-  color: #007bff; /* Azul ONPE/Admin */
+  color: #007bff;
   margin-top: 0px;
   margin-bottom: 0px;
   text-align: center;
 }
 
-/* Instrucciones y subtítulos */
 .instruccion-login {
-  color: #6c757d; /* Gris para subtítulos */
+  color: #6c757d;
   margin-bottom: 25px;
   font-size: 0.95em;
 }
-
 
 /* Borde rojo para registro de votante */
 .votante-registro-borde {
@@ -136,7 +132,6 @@
   border-top: 4px solid #007bff;
 }
 
-/* Logos e imágenes dentro de tarjetas */
 .logo-onpe {
   width: 140px;
   height: auto;
@@ -149,7 +144,7 @@
   margin: 10px auto;
 }
 
-/* --- INPUTS Y CAMPOS DE TEXTO (Mejorados) --- */
+/* --- INPUTS Y CAMPOS DE TEXTO --- */
 .formulario-registro input,
 .input-field {
   width: 100%;
@@ -157,9 +152,9 @@
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background-color: #fff; /* Fondo blanco para legibilidad */
+  background-color: #fff;
   color: #333;
-  font-size: 16px; /* Evita zoom en iOS */
+  font-size: 16px; 
   box-sizing: border-box;
 }
 
@@ -188,7 +183,7 @@
   cursor: pointer;
   margin-top: 10px;
   transition: opacity 0.2s;
-  color: white; /* Aseguramos que el texto del botón sea blanco */
+  color: white;
 }
 
 .btn-registro { background-color: #dc3545; }
@@ -208,28 +203,38 @@
   margin-bottom: 15px;
 }
 
-/* --- CÉDULA DE VOTACIÓN (Grid Responsive) --- */
+/* --- CÉDULA DE VOTACIÓN (Layout Responsive) --- */
 .lista-opciones {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
-  width: 100%;
-  max-width: 900px;
+    display: grid;
+    /* Por defecto (móvil): Una sola columna */
+    grid-template-columns: 1fr; 
+    gap: 15px;
+    width: 100%;
+    max-width: 900px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    margin: 0 auto;
 }
 
-/* ** REGLAS DE COLOR PARA LA VOTACIÓN ** */
+/* MEDIA QUERY: Grid de Múltiples Columnas para Tablets y Escritorio (600px+) */
+@media (min-width: 600px) {
+    .lista-opciones {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
+        gap: 20px; 
+        padding: 0; 
+    }
+}
 
-/* Contenedor de botones de categoría (Presidencial/Regional) */
+/* REGLAS DE BOTONES DE VOTACIÓN */
 .contenedor-categorias {
   display: flex;
-  gap: 15px; /* CAMBIO: Aumenta la separación entre botones */
+  gap: 15px; 
   margin-bottom: 25px;
 }
 
-/* Estilo de los botones de categoría */
 .btn-categoria {
   padding: 8px 15px;
-  border: 2px solid transparent; /* CAMBIO: Agregamos un borde transparente */
+  border: 2px solid transparent; 
   border-radius: 6px;
   cursor: pointer;
   background-color: #555;
@@ -243,16 +248,15 @@
 }
 
 .btn-categoria-activo {
-  background-color: white; /* CAMBIO: Fondo blanco */
-  color: #007bff; /* CAMBIO: Texto azul */
-  border-color: #007bff; /* CAMBIO: Borde azul para destacar */
+  background-color: white; 
+  color: #007bff; 
+  border-color: #007bff; 
   font-weight: bold;
 }
 
-/* Título de la cédula de votación (ahora azul) */
-/* CAMBIO: Usamos h1.cedula-titulo para aumentar la especificidad y forzar el color azul. */
+/* Título de la cédula de votación */
 h1.cedula-titulo {
-  color: #007bff !important; /* Usamos !important como último recurso para asegurar el color */
+  color: #007bff !important; 
   display: flex;
   align-items: center;
   gap: 10px;
@@ -261,7 +265,6 @@ h1.cedula-titulo {
   margin-bottom: 20px;
 }
 
-/* Estilo genérico para la clase (mantenido por si se usa en otro tag) */
 .cedula-titulo {
   color: #007bff;
   display: flex;
@@ -272,7 +275,7 @@ h1.cedula-titulo {
   margin-bottom: 20px;
 }
 
-
+/* Tarjeta de opción */
 .tarjeta-opcion {
   background: white;
   border: 1px solid #eee;
@@ -280,13 +283,11 @@ h1.cedula-titulo {
   border-radius: 8px;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  /* Aseguramos que el texto dentro de la tarjeta sea oscuro */
   color: #333; 
 }
 
-/* Nombre del partido dentro de la tarjeta de opción */
 .tarjeta-opcion h3 {
-    color: #007bff; /* Usamos azul para el nombre del partido */
+    color: #007bff;
     margin: 10px 0 0 0;
     font-size: 1.2em;
 }
@@ -302,13 +303,13 @@ h1.cedula-titulo {
 
 /* --- RESULTADOS ADMIN --- */
 .contenedor-admin {
-  max-width: 800px; /* Más ancho para el dashboard */
+  max-width: 800px;
 }
 
 .total-votos {
   font-size: 1.5em;
   font-weight: bold;
-  color: #dc3545; /* Rojo para el total */
+  color: #dc3545;
   margin-bottom: 20px;
 }
 
@@ -335,13 +336,13 @@ h1.cedula-titulo {
 }
 
 .info-partido h3 {
-  color: #333; /* Color de texto del partido */
+  color: #333;
   margin: 0;
   font-size: 1.1em;
 }
 
 .candidato-admin {
-  color: #666; /* Color de texto del candidato */
+  color: #666;
   margin: 0;
   font-size: 0.85em;
 }
