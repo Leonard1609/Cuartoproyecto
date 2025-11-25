@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import onpeLogo from './assets/onpe-logo.jpg'; 
+import './index.css'
 
 const RegistroVotante = ({ onRegistroExitoso }) => {
   const [datos, setDatos] = useState({

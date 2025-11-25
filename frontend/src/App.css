@@ -1,587 +1,382 @@
-/* --- Limpieza de estilos por defecto y configuración básica --- */
-
-/* 🔑 SOLUCIÓN CLAVE 1: Aplicar el box-sizing globalmente para evitar desbordamientos */
-html {
-    box-sizing: border-box; 
-    margin: 0;
-    padding: 0;
-}
-*, *:before, *:after {
-    box-sizing: inherit;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    background-color: #e9eff5; /* Fondo más claro (simulando los cuadros que querías cambiar) */
-    color: #333;
-    margin: 0;
-    padding: 0;
-    /* 🔑 SOLUCIÓN CLAVE 2: Oculta cualquier contenido que se desborde horizontalmente */
-    overflow-x: hidden; 
-    width: 100vw; 
-}
-
+/* --- Configuración base del layout --- */
 #root {
-    /* 🔑 SOLUCIÓN CLAVE 3: Permitir que el contenido ocupe todo el ancho disponible en móvil */
-    /* Se eliminó max-width: 1280px; y padding: 2rem; para evitar el desbordamiento lateral */
-    margin: 0 auto;
-    text-align: center;
-    width: 100%; 
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
 }
 
-/* --- NUEVO ESTILO: Escudo Nacional como marca de agua en el fondo --- */
-.main-background-wrapper {
-    position: relative; 
-    padding: 0 20px 20px; 
-    z-index: 1; 
-    overflow: hidden;
-}
-
-.main-background-wrapper::before {
-    content: '';
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg');
-    background-repeat: no-repeat;
-    background-position: center 80px; 
-    background-size: 500px; 
-    opacity: 0.05; 
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; 
-    pointer-events: none; 
-}
-
-/* El contenido principal ya no necesita el padding superior, ya lo da el wrapper */
-.contenido-principal {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
-/* ------------------------------------------------------------------ */
-
-
-.contenedor-votacion {
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-    color: #007bff;
-    margin-bottom: 30px;
-}
-
-/* --- SOLUCIÓN DE RESPONSIVIDAD PARA CÉDULA DE VOTACIÓN --- */
-
-/* Estilos para el CONTENEDOR de las tarjetas de opciones */
-.lista-opciones {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-}
-
-/* Estilos para CADA tarjeta de opción */
-.tarjeta-opcion {
-    background: #fff;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    width: 280px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: transform 0.2s;
-}
-
-.tarjeta-opcion:hover {
-    transform: translateY(-5px);
-}
-
-.logo-partido {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    border: 3px solid #ddd;
-    margin-bottom: 10px;
-    object-fit: cover;
-}
-
-
-/* Estilos para los botones */
-button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-}
-
-.btn-votar {
-    background-color: #007bff;
-    color: white;
-}
-
-.btn-votar:hover {
-    background-color: #0056b3;
-}
-
-.btn-votado {
-    background-color: #6c757d; /* Gris cuando ya votó */
-    color: white;
-    cursor: not-allowed;
-}
-
-.mensaje-confirmacion {
-    background-color: #d4edda;
-    color: #155724;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid #c3e6cb;
-    border-radius: 5px;
-    font-weight: bold;
-}
-
-/* --- Estilos para la cabecera (Header) --- */
+/* --- CABECERA FIJA (Header) --- */
 .header-app {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #333;
-    color: white;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 0; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  background-color: #333;
+  color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  box-sizing: border-box;
 }
 
 .header-left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .header-app h1 {
-    color: white;
-    margin: 0;
-    font-size: 1.5em; 
+  color: white;
+  margin: 0;
+  font-size: 1.1em;
+  text-align: left;
+  line-height: 1.2;
 }
 
-/* Ícono de Perú (Base para la imagen o el ícono) */
-.icon-peru {
-    padding: 2px;
-    border-radius: 3px;
-    box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-}
-
-/* ESTILO ESPECÍFICO PARA LA IMAGEN DE LA BANDERA */
 .flag-image {
-    width: 32px; 
-    height: 32px;
-    object-fit: cover;
-    border: 1px solid white; 
+  width: 32px;
+  height: 24px;
+  object-fit: cover;
+  border: 1px solid #ddd;
 }
 
+/* Botón de cerrar sesión */
 .btn-logout {
-    background-color: #dc3545;
-    color: white;
-    padding: 8px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: normal;
-    margin-top: 0;
+  background-color: #dc3545;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+  margin: 0;
 }
 
-.btn-logout:hover {
-    background-color: #c82333;
+/* --- CONTENEDOR PRINCIPAL (Wrapper) --- */
+.main-background-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  /* IMPORTANTE: Espacio superior para compensar la barra fija */
+  padding-top: 90px; 
+  padding-bottom: 20px;
+  padding-left: 15px;
+  padding-right: 15px;
+  box-sizing: border-box;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* --- Estilos para el Login/Registro --- */
-.contenedor-login, .contenedor-registro {
-    max-width: 450px;
-    margin: 50px auto;
-    padding: 30px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    position: relative;
-    z-index: 2; 
-    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
-    width: 95%; /* Asegura que tenga margen en móvil */
+/* Marca de agua del escudo */
+.main-background-wrapper::before {
+  content: '';
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/da/Escudo_Nacional_del_Per%C3%BA.svg');
+  background-repeat: no-repeat;
+  background-position: center 120px;
+  background-size: 500px;
+  opacity: 0.05;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
 }
 
-/* RESPONSIVE: Los campos se apilan en pantallas pequeñas */
-@media (max-width: 600px) {
-    .grupo-nombres {
-        grid-template-columns: 1fr !important; 
-    }
-    .header-app h1 {
-        font-size: 1.2em; /* Reducimos el tamaño de letra en el header */
-    }
+/* --- TARJETAS Y FORMULARIOS --- */
+.contenedor-login, 
+.contenedor-registro,
+.contenedor-admin {
+  background: white;
+  width: 100%;
+  max-width: 400px; /* Ancho ideal para lectura en móvil */
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 2;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  /* Restauramos el color de texto por defecto para el contenido de las tarjetas */
+  color: #333; 
 }
 
-.contenedor-login h2, .contenedor-registro h2 {
-    text-align: center;
-    color: #007bff;
-    margin-bottom: 25px;
+/* TÍTULOS EN FORMULARIOS (Restaurado color azul) */
+.contenedor-login h2, 
+.contenedor-registro h2,
+.contenedor-admin h2 {
+  color: #007bff; /* Azul ONPE/Admin */
+  margin-bottom: 25px;
+  text-align: center;
 }
 
-.logo-onpe {
-    width: 150px;
-    height: auto;
-    margin-bottom: 20px;
-}
-
-/* Estilo para el escudo en el login de admin */
-.escudo-peru {
-    width: 100px; 
-    height: auto;
-    margin: 15px auto;
-    display: block; 
-}
-
+/* Instrucciones y subtítulos */
 .instruccion-login {
-    color: #6c757d;
-    margin-bottom: 25px;
-    font-size: 0.95em;
+  color: #6c757d; /* Gris para subtítulos */
+  margin-bottom: 25px;
+  font-size: 0.95em;
 }
 
-.formulario-registro input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 15px;
-    border: 1px solid #ced4da;
-    border-radius: 6px;
-    box-sizing: border-box; 
-    font-size: 1em;
+
+/* Borde rojo para registro de votante */
+.votante-registro-borde {
+  border-top: 4px solid #dc3545;
 }
 
-.formulario-registro input[name="email"] {
-    margin-top: 15px;
+/* Borde azul para admin */
+.admin-login {
+  border-top: 4px solid #007bff;
 }
 
-.btn-registro {
-    width: 100%;
-    background-color: #dc3545; 
-    color: white;
-    padding: 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1.1em;
-    margin-top: 15px;
-    transition: background-color 0.3s;
+/* Logos e imágenes dentro de tarjetas */
+.logo-onpe {
+  width: 140px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
-.btn-registro:hover {
-    background-color: #c82333;
+.escudo-peru {
+  width: 80px;
+  height: auto;
+  margin: 10px auto;
 }
 
-.mensaje-error {
-    color: #721c24;
-    background-color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+/* --- INPUTS Y CAMPOS DE TEXTO (Mejorados) --- */
+.formulario-registro input,
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff; /* Fondo blanco para legibilidad */
+  color: #333;
+  font-size: 16px; /* Evita zoom en iOS */
+  box-sizing: border-box;
+}
+
+.formulario-registro input:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
 }
 
 .grupo-nombres {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    gap: 15px; 
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
-.grupo-nombres input {
-    margin-bottom: 0 !important;
+/* --- BOTONES DE ACCIÓN --- */
+.btn-registro, 
+.btn-admin-login,
+.btn-votar {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: opacity 0.2s;
+  color: white; /* Aseguramos que el texto del botón sea blanco */
 }
 
-/* Estilo para el enlace OCULTO de Admin */
-.admin-link-oculto {
-    position: fixed; 
-    bottom: 10px;
-    right: 10px;
-    font-size: 0.75em;
-    color: #999;
-    z-index: 9999; 
+.btn-registro { background-color: #dc3545; }
+.btn-admin-login { background-color: #007bff; }
+.btn-votar { background-color: #007bff; }
+
+.btn-registro:hover, 
+.btn-admin-login:hover { opacity: 0.9; }
+
+/* Mensaje de error */
+.mensaje-error {
+  color: #721c24;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 15px;
 }
 
-.admin-link-oculto a {
-    color: #999;
-    text-decoration: none;
-    border-bottom: 1px dotted #999;
+/* --- CÉDULA DE VOTACIÓN (Grid Responsive) --- */
+.lista-opciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
 }
 
-.admin-link-oculto a:hover {
-    color: #333;
+/* ** REGLAS DE COLOR PARA LA VOTACIÓN ** */
+
+/* Contenedor de botones de categoría (Presidencial/Regional) */
+.contenedor-categorias {
+  display: flex;
+  gap: 15px; /* CAMBIO: Aumenta la separación entre botones */
+  margin-bottom: 25px;
 }
 
-/* Estilos específicos del login de Admin */
-.admin-login {
-    border: 2px solid #007bff;
+/* Estilo de los botones de categoría */
+.btn-categoria {
+  padding: 8px 15px;
+  border: 2px solid transparent; /* CAMBIO: Agregamos un borde transparente */
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #555;
+  color: white;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.btn-admin-login {
-    background-color: #007bff;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-top: 10px;
-    width: 100%;
+.btn-categoria:hover {
+  background-color: #666;
 }
 
-/* Borde específico para el registro de votantes */
-.votante-registro-borde {
-    border: 2px solid #dc3545; 
+.btn-categoria-activo {
+  background-color: white; /* CAMBIO: Fondo blanco */
+  color: #007bff; /* CAMBIO: Texto azul */
+  border-color: #007bff; /* CAMBIO: Borde azul para destacar */
+  font-weight: bold;
+}
+
+/* Título de la cédula de votación (ahora azul) */
+/* CAMBIO: Usamos h1.cedula-titulo para aumentar la especificidad y forzar el color azul. */
+h1.cedula-titulo {
+  color: #007bff !important; /* Usamos !important como último recurso para asegurar el color */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6em; 
+  font-weight: 700; 
+  margin-bottom: 20px;
+}
+
+/* Estilo genérico para la clase (mantenido por si se usa en otro tag) */
+.cedula-titulo {
+  color: #007bff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.6em; 
+  font-weight: 700; 
+  margin-bottom: 20px;
 }
 
 
-.cargando-mensaje {
-    padding: 20px;
+.tarjeta-opcion {
+  background: white;
+  border: 1px solid #eee;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  /* Aseguramos que el texto dentro de la tarjeta sea oscuro */
+  color: #333; 
+}
+
+/* Nombre del partido dentro de la tarjeta de opción */
+.tarjeta-opcion h3 {
+    color: #007bff; /* Usamos azul para el nombre del partido */
+    margin: 10px 0 0 0;
     font-size: 1.2em;
-    color: #007bff;
-    background: #e9f5ff;
-    border-radius: 5px;
 }
 
-/* --- ESTILOS ESPECÍFICOS DEL ADMIN DASHBOARD --- */
+.logo-partido {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f8f9fa;
+  margin-bottom: 10px;
+}
 
+/* --- RESULTADOS ADMIN --- */
 .contenedor-admin {
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    /* 🔑 CAMBIO CLAVE: Centrar el texto para que el título se vea bien centrado en móvil */
-    text-align: center; 
-    position: relative;
-    z-index: 2;
-    box-sizing: border-box; /* CRÍTICO: Para asegurar que el padding no desborde el ancho */
-    width: 95%; /* Asegura que tenga margen en móvil */
-    margin: 30px auto;
-    max-width: 1200px;
+  max-width: 800px; /* Más ancho para el dashboard */
 }
 
 .total-votos {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #dc3545; 
-    margin-bottom: 20px;
-    text-align: center;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-}
-.count-value {
-    font-size: 1.5em;
-    display: block;
-    color: #333;
-    margin-top: 5px;
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #dc3545; /* Rojo para el total */
+  margin-bottom: 20px;
 }
 
-.resultados-listado {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.count-value {
+  font-size: 1.5em;
+  display: block;
+  color: #333;
 }
 
 .resultado-item {
-    display: grid;
-    grid-template-columns: 1fr auto; 
-    grid-template-rows: auto auto; 
-    align-items: center;
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Contenedor de Logo e Info */
 .info-partido-container {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    display: flex;
-    align-items: center;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
+
+.info-partido h3 {
+  color: #333; /* Color de texto del partido */
+  margin: 0;
+  font-size: 1.1em;
+}
+
+.candidato-admin {
+  color: #666; /* Color de texto del candidato */
+  margin: 0;
+  font-size: 0.85em;
+}
+
 
 .logo-admin-partido {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ddd;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
-.info-partido {
-    text-align: left;
-    /* 🔑 CAMBIO CLAVE: Dar espacio entre los elementos internos */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrado vertical si hay espacio */
-    gap: 2px; /* Espacio mínimo entre los elementos de texto (h3 y candidato) */
-}
-
-/* 1. Separar el Título del Candidato */
-.info-partido h3 {
-    margin: 0;
-    font-size: 1.1em;
-    display: inline-block;
-    /* Añadimos un poco de margen inferior */
-    margin-bottom: 2px;
-}
-
-/* 2. Separar el Candidato del Conteo */
-.candidato-admin {
-    margin: 0; 
-    font-size: 0.85em;
-    color: #666;
-    /* 🔑 CAMBIO 2: Margen inferior para separarlo del elemento siguiente */
-    margin-bottom: 5px; 
-}
-
-/* 3. Darle margen inferior al conteo (si está en la clase votos-count) */
-.votos-count {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #333;
-    /* 🔑 CAMBIO 3: Margen inferior para separarlo del porcentaje */
-    margin-bottom: 5px;
-}
-
-/* Conteo de Votos */
-.conteo-votos {
-    grid-column: 2 / 3;
-    grid-row: 1 / 2;
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.votos-count {
-    font-size: 1.1em;
-    font-weight: bold;
-    color: #333;
-}
-
-.votos-porcentaje {
-    font-size: 0.9em;
-    color: #dc3545;
-    font-weight: bold;
-}
-
-/* Barra de Progreso (Ocupa todo el ancho inferior) */
 .barra-progreso-contenedor {
-    grid-column: 1 / 3; 
-    grid-row: 2 / 3;
-    background: #eee;
-    border-radius: 5px;
-    margin: 10px 0 0 0;
-    height: 25px;
-    overflow: hidden;
-    text-align: left;
-    box-sizing: border-box;
-    width: 100%;
+  height: 10px;
+  background-color: #e9ecef;
+  border-radius: 5px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .barra-progreso {
-    height: 100%;
-    background-color: #28a745; 
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding-right: 10px;
-    font-weight: bold;
-    transition: width 0.5s ease-in-out;
-    box-sizing: border-box;
-    min-width: 25px; 
+  height: 100%;
+  background-color: #28a745;
 }
 
-/* --- Responsive para Admin Dashboard --- */
-@media (max-width: 768px) {
-    .contenedor-admin {
-        padding: 10px;
-    }
-    .total-votos {
-        font-size: 1.2em;
-    }
-    .count-value {
-        font-size: 1.3em;
-    }
-
-    .resultado-item {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
-    }
-    
-    .info-partido-container {
-        grid-column: 1 / 2;
-        grid-row: 1 / 2;
-    }
-    
-    .conteo-votos {
-        grid-column: 1 / 2;
-        grid-row: 2 / 3;
-        align-items: flex-start;
-        text-align: left;
-        padding-left: 65px; 
-        margin-top: -10px; /* Ajuste para acercar a la info del partido */
-    }
-    .votos-porcentaje {
-        margin-left: 10px;
-    }
-    
-    .barra-progreso-contenedor {
-        grid-column: 1 / 2;
-        grid-row: 3 / 4;
-        margin: 10px 0 0 0;
-    }
-
-    .header-app h1 {
-        font-size: 1.1em;
-    }
+/* Enlace discreto de admin */
+.admin-link-oculto {
+  margin-top: 20px;
+  font-size: 0.8em;
+  color: #aaa;
 }
+.admin-link-oculto a { color: #aaa; }
 
-/* 🚀 Responsive para pantallas MUY pequeñas (< 450px) */
-@media (max-width: 450px) {
-    .contenedor-admin {
-        padding: 10px 5px; 
-    }
-
-    .contenedor-admin h2 {
-        font-size: 1.4em; 
-        line-height: 1.2;
-    }
-
-    .header-app {
-        padding: 10px 5px;
-    }
-    
-    .header-app h1 {
-        font-size: 1em;
-    }
-    
-    .info-partido h3 {
-        font-size: 1em;
-    }
-    
-    .candidato-admin {
-        font-size: 0.8em;
-    }
-
-    .votos-count {
-        font-size: 1em;
-    }
-
-    .votos-porcentaje {
-        font-size: 0.8em;
-    }
+/* --- MEDIA QUERIES (Ajustes finos para móviles muy pequeños) --- */
+@media (max-width: 380px) {
+  .header-app h1 { font-size: 0.9em; }
+  .contenedor-login, .contenedor-registro { padding: 15px; }
+  .lista-opciones { grid-template-columns: 1fr; }
 }
